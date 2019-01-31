@@ -1,0 +1,9 @@
+.Catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.Catalog > div {
+    margin: 30px 50px;
+}
