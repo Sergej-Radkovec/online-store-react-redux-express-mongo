@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Catalog from './component/Catalog/Catalog';
+import Toolbar from './component/ToolBar/ToolBar'
 
 
 class App extends Component {
@@ -60,6 +61,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Toolbar/>
         <Catalog products={this.state.products}/>
       </div>
     );
