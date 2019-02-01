@@ -53,15 +53,15 @@ function CardProduct(props) {
       <Divider variant="middle" />
       <div className={classes.section2}>
         <Typography gutterBottom variant="body1">
-          Select type
+          Выберите тип
         </Typography>
         <div>
-          {props.variants.map(variant => <Chip className={classes.chip} label={variant}/>)}
+          {props.variants.map((variant, i) => <Chip className={classes.chip} label={variant} key={i} clickable/>)}
         </div>
       </div>
       <div className={classes.section3}>
         <Button variant="contained" color="primary" fullWidth>
-          Add to cart
+          В корзину
         </Button>
       </div>
     </Card>

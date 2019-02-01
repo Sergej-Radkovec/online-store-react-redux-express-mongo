@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 import Catalog from './component/Catalog/Catalog';
-import Toolbar from './component/ToolBar/ToolBar'
+import Toolbar from './component/ToolBar/ToolBar';
 
 
 class App extends Component {
@@ -60,10 +62,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <>
+        <CssBaseline />
         <Toolbar/>
         <Catalog products={this.state.products}/>
-      </div>
+      </>
     );
   }
 }
