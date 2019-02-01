@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Catalog from './component/Catalog/Catalog';
 import Layout from './hoc/Layout/Layout';
+import Admin from './component/Admin/Admin'
 
 
 class App extends Component {
   render() {
+
     return (
       <>
         <CssBaseline />
         <Layout>
-          <Catalog products={this.props.products}/>
+          <Switch>
+            <Route path="/admin" component={Admin}/>
+            <Route path="/" exact render={() => <Catalog products={this.props.products}/>}/>
+            <Redirect to="/" />
+          </Switch>
         </Layout>
       </>
     );
