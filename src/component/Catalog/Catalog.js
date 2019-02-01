@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardProduct from '../CardProduct/CardProduct';
+import CardProduct from './CardProduct/CardProduct';
 import classes from './Catalog.css'
 
 const Catalog = (props) => {
