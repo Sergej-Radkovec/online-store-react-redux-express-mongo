@@ -1,12 +1,21 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import NavItem from './NavItem/NavItem';
+
+const styles = {
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 class SideMenu extends React.Component {
   state = {
-    anchorEl: null,
+    items: ['Catalog', 'Admin', 'Logout'],
+    anchorEl: null
   };
 
   handleClick = event => {
@@ -19,12 +28,12 @@ class SideMenu extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-
+    const { classes } = this.props;
     return (
       <div>
-        <IconButton
+        <IconButton className={classes.menuButton}
           color="inherit"
-          aria-owns={anchorEl ? 'simple-menu' : undefined}
+          aria-owns={anchorEl ? 'side-menu' : undefined}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -36,13 +45,11 @@ class SideMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Catalog</MenuItem>
-          <MenuItem onClick={this.handleClose}>Admin</MenuItem>
-          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+          {this.state.items.map((item) => <NavItem title={item} clicked={this.handleClose} key={item}/>)}
         </Menu>
       </div>
     );
   }
 }
 
-export default SideMenu;
+export default withStyles(styles)(SideMenu);

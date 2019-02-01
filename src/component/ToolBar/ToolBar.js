@@ -23,13 +23,17 @@ const styles = {
 const ToolBar = (props) => {
   const { classes } = props;
 
+  const path = window.location.pathname;
+
+  const pageTitle = path !== '/' ? path.slice(1) : 'Catalog';
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <SideMenu className={classes.menuButton}/>
+          <SideMenu/>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+            {pageTitle}
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
