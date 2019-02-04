@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -60,7 +62,7 @@ function CardProduct(props) {
         </div>
       </div>
       <div className={classes.section3}>
-        <Button variant="contained" color="primary" fullWidth>
+        <Button onClick={()=> props.onProductAdded(props.title)} variant="contained" color="primary" fullWidth>
           В корзину
         </Button>
       </div>
@@ -72,4 +74,10 @@ CardProduct.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CardProduct);
+const mapDispatchToProps = dispatch => {
+  return {
+    onProductAdded: (name) => dispatch(actions.addProductInOrder(name))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(CardProduct));

@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Catalog from './component/Catalog/Catalog';
 import Layout from './hoc/Layout/Layout';
-import Admin from './component/Admin/Admin'
-
+import Admin from './component/Admin/Admin';
+import Order from './component/Order/Order';
 
 class App extends Component {
   render() {
-
     return (
       <>
         <CssBaseline />
         <Layout>
           <Switch>
+            <Route path="/order" component={Order}/>
             <Route path="/admin" component={Admin}/>
             <Route path="/catalog" render={() => <Catalog products={this.props.products}/>}/>
-            <Redirect to="/catalog" />
+            <Redirect to="/Catalog" />
           </Switch>
+
         </Layout>
       </>
     );
@@ -29,8 +30,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.catalog.products
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
