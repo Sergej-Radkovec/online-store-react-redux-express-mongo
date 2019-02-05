@@ -3,5 +3,6 @@ export {
 } from './order';
 
 export {
-  deleteProduct
+  deleteProduct,
+  addProduct
 } from './catalog';

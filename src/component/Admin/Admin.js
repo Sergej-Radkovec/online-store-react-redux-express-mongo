@@ -5,7 +5,12 @@ import List from '@material-ui/core/List';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import ListProduct from './ListProduct/ListProduct';
+import * as actions from "../../store/actions";
 
 const styles = theme => ({
   root: {
@@ -22,12 +27,31 @@ const styles = theme => ({
     top: theme.spacing.unit * 10,
     left: '50%',
     transform: 'translateX(-50%)'
-  }
+  },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  textField: {
+    width: '100%'
+  },
 });
 
 class Admin extends Component {
   state = {
-    modalOpen: false
+    modalOpen: false,
+    form: {
+      title: '',
+      price: '',
+      description: ''
+    }
   };
 
   handleOpen = () => {
@@ -36,6 +60,28 @@ class Admin extends Component {
 
   handleClose = () => {
     this.setState({ modalOpen: false });
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: event.target.value
+      }
+    });
+  };
+
+  submitHandler = (event) => {
+    event.preventDefault();
+    this.props.addProduct(this.state.form);
+    this.setState({
+      modalOpen: false,
+      form: {
+        title: '',
+        price: '',
+        description: ''
+      }
+    })
   };
 
   render () {
@@ -58,12 +104,48 @@ class Admin extends Component {
           <AddIcon/>
         </Fab>
         <Modal open={this.state.modalOpen} onClose={this.handleClose}>
-          <div>Модалка</div>
+          <Paper className={classes.paper}>
+            <Typography variant="h5" component="h5">
+              Добавте новый продукт
+            </Typography>
+            <form onSubmit={this.submitHandler}>
+              <TextField
+                id="title"
+                label="Title"
+                className={classes.textField}
+                value={this.state.form.title}
+                onChange={this.handleChange('title')}
+                margin="normal"
+              />
+              <TextField
+                id="price"
+                label="Price, $"
+                value={this.state.price}
+                onChange={this.handleChange('price')}
+                type="number"
+                className={classes.textField}
+                margin="normal"
+              />
+              <TextField
+                id="description"
+                label="Description"
+                multiline
+                rows="3"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                value={this.state.description}
+                onChange={this.handleChange('description')}
+              />
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Добавить
+              </Button>
+            </form>
+          </Paper>
         </Modal>
       </>
     )
   }
-
 }
 
 const mapStateToProps = state => {
@@ -72,4 +154,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Admin));
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: (product) => dispatch(actions.addProduct(product))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Admin));

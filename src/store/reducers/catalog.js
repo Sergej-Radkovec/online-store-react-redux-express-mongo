@@ -63,6 +63,18 @@ const reducer = (state = initialState, action) => {
       newState.products.splice(action.product, 1);
       return newState
     }
+    case actionTypes.ADD_PRODUCT: {
+      const newState = {
+        ...state,
+        products: [...state.products].concat({
+          title: action.product.title,
+          price: action.product.price,
+          description: action.product.description,
+          variants: ['дуб', 'сосна', 'ель']
+        })
+      };
+      return newState;
+    }
     default: return state;
   }
 };

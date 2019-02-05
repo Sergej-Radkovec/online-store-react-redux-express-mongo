@@ -6,3 +6,10 @@ export const deleteProduct = (product) => {
     product: product
   }
 };
+
+export const addProduct = (product) => {
+  return {
+    type: actionTypes.ADD_PRODUCT,
+    product: product
+  }
+};
