@@ -59,7 +59,14 @@ class Admin extends Component {
   };
 
   handleClose = () => {
-    this.setState({ modalOpen: false });
+    this.setState({
+      modalOpen: false,
+      form: {
+        title: '',
+        price: '',
+        description: ''
+      }
+    })
   };
 
   handleChange = name => event => {
@@ -110,6 +117,7 @@ class Admin extends Component {
             </Typography>
             <form onSubmit={this.submitHandler}>
               <TextField
+                required
                 id="title"
                 label="Title"
                 className={classes.textField}
@@ -118,15 +126,17 @@ class Admin extends Component {
                 margin="normal"
               />
               <TextField
+                required
                 id="price"
                 label="Price, $"
-                value={this.state.price}
+                value={this.state.form.price}
                 onChange={this.handleChange('price')}
                 type="number"
                 className={classes.textField}
                 margin="normal"
               />
               <TextField
+                required
                 id="description"
                 label="Description"
                 multiline

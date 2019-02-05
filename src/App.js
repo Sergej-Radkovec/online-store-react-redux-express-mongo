@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Catalog from './component/Catalog/Catalog';
 import Layout from './hoc/Layout/Layout';
 import Admin from './component/Admin/Admin';
-import Order from './component/Order/Order';
+import Checkout from './component/Checkout/Checkout';
 
 class App extends Component {
   render() {
@@ -16,7 +16,7 @@ class App extends Component {
         <CssBaseline />
         <Layout>
           <Switch>
-            <Route path="/order" component={Order}/>
+            <Route path="/order" component={Checkout}/>
             <Route path="/admin" component={Admin}/>
             <Route path="/catalog" render={() => <Catalog products={this.props.products}/>}/>
             <Redirect to="/Catalog" />
