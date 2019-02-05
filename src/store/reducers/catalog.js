@@ -1,3 +1,5 @@
+import * as actionTypes from '../actions/actionsTypes';
+
 const initialState = {
   products: [
     {
@@ -53,8 +55,16 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.DELETE_PRODUCT: {
+      const newState = {
+        ...state,
+        products: [...state.products]
+      };
+      newState.products.splice(action.product, 1);
+      return newState
+    }
     default: return state;
   }
-}
+};
 
 export default reducer;

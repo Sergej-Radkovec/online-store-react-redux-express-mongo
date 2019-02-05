@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-
-
 
 const styles = {
   inline: {
@@ -30,7 +30,7 @@ function ListProduct(props) {
           </>
         }
       />
-      <Button variant="contained" color="primary">
+      <Button onClick={() => props.deleteProduct(props.id)} variant="contained" color="primary">
         Удалить
       </Button>
     </ListItem>
@@ -41,4 +41,10 @@ ListProduct.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ListProduct);
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteProduct: (id) => dispatch(actions.deleteProduct(id))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(ListProduct));

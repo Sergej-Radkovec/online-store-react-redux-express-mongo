@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from "react-redux";
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Modal from '@material-ui/core/Modal';
 import ListProduct from './ListProduct/ListProduct';
 
 const styles = theme => ({
@@ -24,26 +25,45 @@ const styles = theme => ({
   }
 });
 
-const Admin = (props) => {
-  const { classes } = props;
-  return (
-    <>
-      <List className={classes.root}>
-        {props.products.map((product, i) => (
-          <ListProduct
-            title={product.title}
-            price={product.price}
-            description={product.description}
-            key={i}
-          />
-          )
-        )}
-      </List>
-      <Fab className={classes.fab} color="primary">
-        <AddIcon/>
-      </Fab>
-    </>
-  )
+class Admin extends Component {
+  state = {
+    modalOpen: false
+  };
+
+  handleOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
+  render () {
+    const { classes } = this.props;
+    return (
+      <>
+        <List className={classes.root}>
+          {this.props.products.map((product, i) => (
+              <ListProduct
+                title={product.title}
+                price={product.price}
+                description={product.description}
+                key={i}
+                id={i}
+              />
+            )
+          )}
+        </List>
+        <Fab onClick={this.handleOpen} className={classes.fab} color="primary">
+          <AddIcon/>
+        </Fab>
+        <Modal open={this.state.modalOpen} onClose={this.handleClose}>
+          <div>Модалка</div>
+        </Modal>
+      </>
+    )
+  }
+
 }
 
 const mapStateToProps = state => {
