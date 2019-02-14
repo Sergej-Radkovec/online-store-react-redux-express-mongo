@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import SideMenu from './SideMenu/SideMenu';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Button from '@material-ui/core/Button';
 import {Link, withRouter} from 'react-router-dom';
 
 const styles = theme => ({
@@ -54,6 +55,7 @@ const ToolBar = (props) => {
               <ShoppingCartIcon className={classes.cartIcon}/>
             </Badge>
           </Link>
+          <Button color="inherit">Sign in with Google</Button>
         </Toolbar>
       </AppBar>
     </div>
