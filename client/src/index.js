@@ -2,21 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
+import reducers from './store/reducers'
 import * as serviceWorker from './serviceWorker';
-import catalog from './store/reducers/catalog';
-import order from './store/reducers/order';
 
 
-const rootReducer = combineReducers({
-  catalog: catalog,
-  order: order
-});
-
-const store = createStore(rootReducer);
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 const app = (
   <Provider store={store}>
