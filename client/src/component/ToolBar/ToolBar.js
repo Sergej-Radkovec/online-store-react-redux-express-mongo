@@ -10,6 +10,11 @@ import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from '@material-ui/core/Button';
 import {Link, withRouter} from 'react-router-dom';
+import * as actions from '../../store/actions/index'
+import GoogleLogin from 'react-google-login';
+import keys from '../../keys';
+import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -55,7 +60,15 @@ const ToolBar = (props) => {
               <ShoppingCartIcon className={classes.cartIcon}/>
             </Badge>
           </Link>
-          <Button color="inherit">Sign in with Google</Button>
+          {
+            props.profile ?
+              <Avatar alt="User avatar" src={props.profile.imageUrl}/> :
+              <GoogleLogin
+                clientId={keys.googleClientID}
+                buttonText="Login"
+                onSuccess={props.fetchUser}
+              />
+          }
         </Toolbar>
       </AppBar>
     </div>
@@ -68,8 +81,15 @@ ToolBar.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    products: state.order
+    products: state.order,
+    profile: state.auth
   };
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(ToolBar)));
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchUser: (res) => dispatch(actions.fetchUser(res))
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ToolBar)));

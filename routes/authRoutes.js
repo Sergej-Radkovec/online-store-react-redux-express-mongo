@@ -1,22 +1,21 @@
-const passport = require ('passport');
+const multer = require('multer');
+const mongoose = require('mongoose');
+
+const User = mongoose.model('users');
+
+const upload = multer();
 
 module.exports = (app) => {
-  app.get(
-    '/auth/google',
-    passport.authenticate('google', {
-      scope: ['profile', 'email']
-    })
+  app.post(
+    '/api/auth',
+    upload.array(),
+    async (req, res) => {
+      const existingUser = await User.findOne({ googleId: req.body.googleId });
+      if (!existingUser) {
+        await new User(req.body).save();
+      }
+
+      res.send(req.body)
+    }
   );
-
-  app.get('/auth/google/callback',
-    passport.authenticate('google')
-  );
-
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-  });
-
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
-  });
 };

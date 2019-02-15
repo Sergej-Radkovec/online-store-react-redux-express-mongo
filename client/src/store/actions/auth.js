@@ -1,11 +1,10 @@
 import axios from 'axios';
-import { FETCH_USER } from "./actionsTypes";
+import { FETCH_USER, LOGOUT } from "./actionsTypes";
 
-export const fetchUser = () => async dispatch => {
-  const res = await axios.get('/api/current_user');
-  dispatch({ type: FETCH_USER, payload: res.data });
+export const fetchUser = (data) => async dispatch => {
+  const res = await axios.post('/api/auth', data.profileObj);
+  dispatch({ type: FETCH_USER, profile: res.data });
 };
 
-export const logInUser = () => async dispatch => {
-  const res = await axios.get('/auth/google');
-};
+export const logout = () => ({ type: LOGOUT });
+

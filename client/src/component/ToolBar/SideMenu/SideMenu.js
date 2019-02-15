@@ -3,7 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import NavItem from './NavItem/NavItem';
+import * as actions from '../../../store/actions/index';
+import { connect } from 'react-redux';
 
 const styles = {
   menuButton: {
@@ -14,7 +17,7 @@ const styles = {
 
 class SideMenu extends React.Component {
   state = {
-    items: ['Catalog', 'Admin', 'Logout'],
+    items: ['Catalog', 'Admin'],
     anchorEl: null
   };
 
@@ -46,10 +49,22 @@ class SideMenu extends React.Component {
           onClose={this.handleClose}
         >
           {this.state.items.map((item) => <NavItem title={item} clicked={this.handleClose} key={item}/>)}
+          <MenuItem onClick={() => {
+            this.props.logout();
+            this.handleClose()
+          }}>
+            Logout
+          </MenuItem>
         </Menu>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(SideMenu);
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(actions.logout())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(SideMenu));

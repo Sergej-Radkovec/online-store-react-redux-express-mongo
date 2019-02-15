@@ -19,7 +19,7 @@ class App extends Component {
             <Route path="/order" component={Checkout}/>
             <Route path="/admin" component={Admin}/>
             <Route path="/catalog" render={() => <Catalog products={this.props.products}/>}/>
-            <Redirect to="/Catalog" />
+
           </Switch>
 
         </Layout>
