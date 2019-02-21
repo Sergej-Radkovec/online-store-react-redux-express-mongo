@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ListProduct from './ListProduct/ListProduct';
+import ListProduct from '../../component/ListProduct/ListProduct';
 import * as actions from "../../store/actions";
 
 const styles = theme => ({
@@ -101,8 +101,8 @@ class Admin extends Component {
                 title={product.title}
                 price={product.price}
                 description={product.description}
+                delete={() => this.props.deleteProduct(i)}
                 key={i}
-                id={i}
               />
             )
           )}
@@ -166,7 +166,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProduct: (product) => dispatch(actions.addProduct(product))
+    addProduct: (product) => dispatch(actions.addProduct(product)),
+    deleteProduct: (id) => dispatch(actions.deleteProduct(id))
   }
 };
 

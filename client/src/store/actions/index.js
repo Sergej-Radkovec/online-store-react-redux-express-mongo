@@ -1,5 +1,6 @@
 export {
-  addProductInOrder
+  addProductInOrder,
+  deleteProductOrder
 } from './order';
 
 export {

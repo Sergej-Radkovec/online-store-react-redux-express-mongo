@@ -4,10 +4,11 @@ import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Catalog from './component/Catalog/Catalog';
+import Catalog from './containers/Catalog/Catalog';
 import Layout from './hoc/Layout/Layout';
-import Admin from './component/Admin/Admin';
-import Checkout from './component/Checkout/Checkout';
+import Admin from './containers/Admin/Admin';
+import Order from './containers/Order/Order';
+import Checkout from './containers/Checkout/Checkout';
 
 class App extends Component {
   render() {
@@ -16,12 +17,12 @@ class App extends Component {
         <CssBaseline />
         <Layout>
           <Switch>
-            <Route path="/order" component={Checkout}/>
+            <Route path="/order" component={Order}/>
             <Route path="/admin" component={Admin}/>
+            <Route path="/checkout" component={Checkout}/>
             <Route path="/catalog" render={() => <Catalog products={this.props.products}/>}/>
-
+            <Redirect to="/Catalog" />
           </Switch>
-
         </Layout>
       </>
     );

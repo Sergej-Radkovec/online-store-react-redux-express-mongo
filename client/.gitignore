@@ -24,4 +24,4 @@ yarn-error.log*
 
 .idea/
 
-keys.js
+.env.development

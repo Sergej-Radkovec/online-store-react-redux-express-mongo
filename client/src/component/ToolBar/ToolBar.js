@@ -8,13 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import SideMenu from './SideMenu/SideMenu';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Button from '@material-ui/core/Button';
 import {Link, withRouter} from 'react-router-dom';
-import * as actions from '../../store/actions/index'
+import * as actions from '../../store/actions'
 import GoogleLogin from 'react-google-login';
-import keys from '../../keys';
 import Avatar from '@material-ui/core/Avatar';
-import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -64,7 +61,7 @@ const ToolBar = (props) => {
             props.profile ?
               <Avatar alt="User avatar" src={props.profile.imageUrl}/> :
               <GoogleLogin
-                clientId={keys.googleClientID}
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Login"
                 onSuccess={props.fetchUser}
               />

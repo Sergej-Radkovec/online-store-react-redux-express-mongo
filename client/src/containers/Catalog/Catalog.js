@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardProduct from './CardProduct/CardProduct';
+import CardProduct from '../../component/CardProduct/CardProduct';
 import classes from './Catalog.css'
 
 const Catalog = (props) => {
@@ -17,6 +17,6 @@ const Catalog = (props) => {
       )}
     </div>
   )
-}
+};
 
 export default Catalog;

@@ -4,12 +4,17 @@ const initialState = [];
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.DELETE_PRODUCT_ORDER: {
+      const newState = [
+        ...state
+      ];
+      newState.splice(action.product, 1);
+      return newState
+    }
     case actionTypes.ADD_PRODUCT_ORDER: {
       return [
         ...state,
-        {
-          product: action.product,
-        }
+        action.product
       ];
     }
     default: return state;
